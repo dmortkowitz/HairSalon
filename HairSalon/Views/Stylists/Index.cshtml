@@ -5,6 +5,6 @@
 }
 @foreach (var stylist in Model)
 {
-  <h3><a href="/stylists/@stylist.GetId()">@stylist.GetName()</a></h3>
+  <h3><a href="/stylists/@stylist.GetStyleId()">@stylist.GetStyleName()</a></h3>
 }
 <p><a href="/">Back home</a></p>

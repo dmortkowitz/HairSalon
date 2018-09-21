@@ -2,9 +2,9 @@
 <ul>
  @foreach (var customer in @Model["customers"])
  {
-   <li><a href='/stylists/@Model["stylist"].GetId()/customers/@customer.GetId()'>@customer.GetDescription()</a></li>
+   <li><a href='/stylists/@Model["stylist"].GetStyleId()/customers/@customer.GetCustId()'>@customer.GetCustomers()</a></li>
  }
 </ul>
-<p><a href='/stylists/@Model["stylist"].GetId()/customers/new'>Add a new customer</a></p>
+<p><a href='/stylists/@Model["stylist"].GetStyleId()/customers/new'>Add a new customer</a></p>
 <p><a href='/stylists'>Return to stylist list</a></p>
 <p><a href='/'>Return to Main Page.</a></p>

@@ -1,5 +1,5 @@
 <h1>Customer Detail Page</h1>
 <hr />
-<h2>@Model["customer"].GetDescription()</h2>
-<a href = '/stylists/@Model["stylist"].GetId()/customers/new'><button class='btn btn-danger'>Add customer</button></a>
-<a href = '/stylists/@Model["stylist"].GetId()'><button class='btn btn-warning'>View "@Model["stylist"].GetName()"</button></a>
+<h2>@Model["customer"].GetCustName()</h2>
+<a href = '/stylists/@Model["stylist"].GetStyleId()/customers/new'><button class='btn btn-danger'>Add customer</button></a>
+<a href = '/stylists/@Model["stylist"].GetStyleId()'><button class='btn btn-warning'>View "@Model["stylist"].GetName()"</button></a>
