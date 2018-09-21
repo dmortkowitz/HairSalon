@@ -1,0 +1,7 @@
+<h1>Add a new customer to @Model.GetName()</h1>
+<form action='/customers' method='post'>
+ <input id='stylistId' name='stylistId' type='hidden' value='@Model.GetId()'>
+ <label for='customerDescription'>Customer description</label>
+ <input id='customerDescription' name='customerDescription' type='text'>
+ <button type='submit'>Add customer</button>
+</form>
