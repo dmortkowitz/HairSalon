@@ -8,11 +8,27 @@ _A program that allows you, a salon owner, to keep track of your stylist employe
 _This program allows you to create an organized list of stylists, and the clients they currently hold at your hair salon. You can choose to either add a newly hired stylist, add new clients to an existing stylist, or edit and remove a current stylist's clientbase._
 
 ## Directions for Installation
+#### *Note*: This application was built using a Mac running OS X 10.13. If you are running Windows or a significantly earlier version of OS X, these instructions may vary based on your operating system.
 
-
+* _To launch this application, please have MAMP and MySql installed and configured on your Mac._
 * _Clone or download code from the Git Rep, located at:_
 * https://github.com/dmortkowitz/WordCounter.git
 * _Navigate to work folder, and load into text editor of choice._
+* _Then,_
+* _On OS X, load Terminal and run the command:_
+* /Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot 
+* _Then:_
+* CREATE DATABASE david_mortkowitz;
+* SHOW DATABASES; 
+* USE david_mortkowitz;
+* _To create tables, you may use the_
+* CREATE TABLE stylists (name VARCHAR 255)
+* _Then, from terminal, please navigate to the project folder HairSalon within HairSalon.Solution, and type: 
+* dotnet restore
+* dotnet run
+* _Once the file is running, signaled by the notification in Terminal, you may local up:_
+* Localhost:5000 
+* _in your browser of choice (Chrome is recommended) and navigate the Hair Salon database._
 
 
 ## Expected behavior
