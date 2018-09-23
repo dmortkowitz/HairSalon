@@ -7,51 +7,79 @@ namespace HairSalon.Controllers
   public class CustomersController : Controller
   {
 
-    [HttpGet("/customers")]
-    public ActionResult Index()
+    [HttpGet("/stylists/{stylistId}/")]
+    public ActionResult Index(int stylistId)
     {
-      List<Customer> allCustomers = Customer.GetAll();
+      Stylist stylist = Stylist.Find(stylistId);
+      List<Customer> allCustomers = Customer.GetAll(stylistId);
       return View(allCustomers);
     }
 
 
-    [HttpGet("/stylists/{styleid}/customers/new")]
-    public ActionResult CreateForm(int styleId)
+    [HttpGet("/stylists/{stylistId}/customers/new")]
+    public ActionResult CreateForm(int stylistId)
     {
-      Dictionary <string,object> model = new Dictionary<string, object>{};
-      Stylist stylist = Stylist.Find(styleId);
+      //int testStylistId = int.Parse("stylistId");
+      // Dictionary <string,object> model = new Dictionary<string, object>{};
+      Stylist stylist = Stylist.Find(stylistId);
       return View(stylist);
     }
-
-      
-    [HttpPost ("/customers")]
-    public ActionResult CreateCustomer (int styleId, string customerName) 
+    
+    [HttpGet("/stylists/{stylistId}/customers/{id}")]
+    public ActionResult Details(int stylistId, int id)
     {
-      Dictionary<string, object> model = new Dictionary<string, object> ();
-      Stylist foundStylist = Stylist.Find(styleId);
-      Customer newCustomer = new Customer (customerName, styleId);
-      newCustomer.Save();
-      List<Customer> stylistCustomers = foundStylist.GetCustomers();
-      model.Add ("customers", stylistCustomers);
-      model.Add ("stylist", foundStylist);
-      return View ("Details", model);
-    }
-
-    [HttpGet("/stylists/{styleId}/customers/{id}")]
-    public ActionResult Details(int custStyleId, int customerId)
-    {
-      Customer customer = Customer.Find(customerId);
       Dictionary<string, object> model = new Dictionary<string, object>();
-      Stylist stylist = Stylist.Find(custStyleId);
+      Stylist stylist = Stylist.Find(stylistId);
+      Customer customer = Customer.Find(id);
       model.Add("customer", customer);
       model.Add("stylist", stylist);
-      return View("Details", model);
+      return View(model);
     }
+      
+    // [HttpPost ("/customers")]
+    // public ActionResult CreateCustomer (int stylistId, string customerName) 
+    // {
+    //   // int testStylistId = int.Parse("stylistId");
+    //   // string testCustomerName = "customerName";
+    //   Dictionary<string, object> model = new Dictionary<string, object> ();
+    //   Stylist foundStylist = Stylist.Find(stylistId);
+    //   Customer newCustomer = new Customer (customerName, stylistId);
+    //   newCustomer.Save();
+    //   List<Customer> stylistCustomers = foundStylist.GetCustomers();
+    //   model.Add ("customers", stylistCustomers);
+    //   model.Add ("stylist", foundStylist);
+    //   return RedirectToAction("index", model);
+    // }
+
+    [HttpPost ("/customers")]
+    public ActionResult CreateCustomer () 
+    {
+      int testStylistId = int.Parse(Request.Form["stylistId"]);
+      string testCustomerName = Request.Form["customerName"];
+      Dictionary<string, object> model = new Dictionary<string, object> ();
+      Stylist foundStylist = Stylist.Find(testStylistId);
+      Customer newCustomer = new Customer (testCustomerName, testStylistId);
+      newCustomer.Save();
+      List<Customer> stylistCustomers = foundStylist.GetCustomers();
+      // model.Add ("customers", stylistCustomers);
+      // model.Add ("stylist", foundStylist);
+      return RedirectToAction("index", new {stylistId = testStylistId});
+    }
+    // [HttpGet("/stylists/{stylistId}/customers/{id}")]
+    // public ActionResult Details(int stylistId, int id)
+    // {
+    //   Customer customer = Customer.Find(id);
+    //   Dictionary<string, object> model = new Dictionary<string, object>();
+    //   Stylist stylist = Stylist.Find(stylistId);
+    //   model.Add("customer", customer);
+    //   model.Add("stylist", stylist);
+    //   return View("Details", model);
+    // }
 
     [HttpGet("/customers/{id}/update")]
-    public ActionResult UpdateForm(int customerId)
+    public ActionResult UpdateForm(int id)
     {
-      Customer thisCustomer = Customer.Find(customerId);
+      Customer thisCustomer = Customer.Find(id);
       return View(thisCustomer);
     }
 

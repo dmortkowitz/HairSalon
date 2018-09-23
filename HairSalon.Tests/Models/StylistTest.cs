@@ -7,11 +7,86 @@ namespace HairSalon.Tests
 {
   [TestClass]
   public class StylistTests : IDisposable
-  {
-        public StylistTests()
-        {
-            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=3306;database=david_mortkowitz_test;";
-        }
+{
+    public StylistTests()
+    {
+      DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=3306;database=david_mortkowitz_test;";
+    } 
+
+    [TestMethod]
+    public void GetAll_CategoriesEmptyAtFirst_0()
+    {
+      //Arrange, Act
+      int result = Category.GetAll().Count;
+
+      //Assert
+      Assert.AreEqual(0, result);
+    }
+
+    [TestMethod]
+    public void Equals_ReturnsTrueForSameName_Category()
+    {
+      //Arrange, Act
+      Category firstCategory = new Category("Janet");
+      Category secondCategory = new Category("Janet");
+
+      //Assert
+      Assert.AreEqual(firstCategory, secondCategory);
+    }
+
+    [TestMethod]
+    public void Save_SavesCategoryToDatabase_CategoryList()
+    {
+      //Arrange
+      Category testCategory = new Category("Janet");
+      testCategory.Save();
+
+      //Act
+      List<Category> result = Category.GetAll();
+      List<Category> testList = new List<Category>{testCategory};
+
+      //Assert
+      CollectionAssert.AreEqual(testList, result);
+    }
+
+
+    [TestMethod]
+    public void Save_DatabaseAssignsIdToCategory_Id()
+    {
+      //Arrange
+      Category testCategory = new Category("Janet");
+      testCategory.Save();
+
+      //Act
+      Category savedCategory = Category.GetAll()[0];
+
+      int result = savedCategory.GetStyleId();
+      int testId = testCategory.GetStyleId();
+
+      //Assert
+      Assert.AreEqual(testId, result);
+    }
+
+
+    [TestMethod]
+    public void Find_FindsCategoryInDatabase_Category()
+    {
+      //Arrange
+      Category testCategory = new Category("Janet");
+      testCategory.Save();
+
+      //Act
+      Category foundCategory = Category.Find(testCategory.GetStyleId());
+
+      //Assert
+      Assert.AreEqual(testCategory, foundCategory);
+    }
+
+    public void Dispose()
+    {
+      Item.DeleteAll();
+      Category.DeleteAll();
+    }
   }
 }
 

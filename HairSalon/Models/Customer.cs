@@ -8,15 +8,15 @@ namespace HairSalon.Models
   public class Customer
   {
    
-    private string _customerFirst;
-    private int _styleId;
+    private string _customerName;
+    private int _stylistId;
     private int _id;
 
-    public Customer (string customerFirst, int styleId = 0, int customerId = 0) 
+    public Customer (string customerName, int stylistId = 0, int id = 0) 
     {
-      _customerFirst = customerFirst;
-      _styleId = styleId;
-      _id = customerId;
+      _customerName = customerName;
+      _stylistId = stylistId;
+      _id = id;
     }
 
     public override bool Equals(System.Object otherCustomer)
@@ -41,7 +41,7 @@ namespace HairSalon.Models
 
     public string GetCustName() 
     {
-      return _customerFirst;
+      return _customerName;
     }
 
     public int GetCustId()
@@ -49,26 +49,30 @@ namespace HairSalon.Models
       return _id;
     }
 
-    public int GetStyleId()
+    public int GetStylistId()
     {
-      return _styleId;
+      return _stylistId;
     }
 
-    public static List<Customer> GetAll() 
+    public static List<Customer> GetAll(int stylistId) 
     {
       List<Customer> allCustomers = new List<Customer> {};
       MySqlConnection conn = DB.Connection();
-      conn.Open ();
+      conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT * FROM customers;";
+      cmd.CommandText = @"SELECT * FROM customers where stylistId = @stylistId;";
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
       
+      MySqlParameter searchStylistId = new MySqlParameter();
+      searchStylistId.ParameterName = "@stylistId";
+      searchStylistId.Value = stylistId;
+      cmd.Parameters.Add(searchStylistId);
       while (rdr.Read()) 
       {
         int customerId = rdr.GetInt32(0);
-        string customerDescription = rdr.GetString(1);
-        int customerStylistID = rdr.GetInt32(2);
-        Customer newCustomer = new Customer (customerDescription, customerStylistID, customerId);
+        string customerName = rdr.GetString(1);
+        int customerStylistId = rdr.GetInt32(2);
+        Customer newCustomer = new Customer (customerName, customerStylistId, customerId);
         allCustomers.Add(newCustomer);
       }
       conn.Close();
@@ -78,23 +82,25 @@ namespace HairSalon.Models
       }
       return allCustomers;
     }
+
+
     public void Save()
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO customers (customerFirst, custStylistId) VALUES (@customerName, @styleId);";
+      cmd.CommandText = @"INSERT INTO customers (customerName, stylistId) VALUES (@customerName, @stylistId);";
 
-      MySqlParameter customerFirst = new MySqlParameter();
-      customerFirst.ParameterName = "@customerName";
-      customerFirst.Value = this._customerFirst;
-      cmd.Parameters.Add(customerFirst);
+      MySqlParameter customerName = new MySqlParameter();
+      customerName.ParameterName = "@customerName";
+      customerName.Value = this._customerName;
+      cmd.Parameters.Add(customerName);
 
-      MySqlParameter custStylistId = new MySqlParameter();
-      custStylistId.ParameterName = "@styleId";
-      custStylistId.Value = this._styleId;
-      cmd.Parameters.Add(custStylistId);
+      MySqlParameter stylistId = new MySqlParameter();
+      stylistId.ParameterName = "@stylistId";
+      stylistId.Value = this._stylistId;
+      cmd.Parameters.Add(stylistId);
      
       cmd.ExecuteNonQuery();
       _id = (int) cmd.LastInsertedId; 
@@ -110,20 +116,20 @@ namespace HairSalon.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE customers SET customerFirst = @newCustomerName WHERE id = @searchId;";
+      cmd.CommandText = @"UPDATE customers SET customerName = @newCustomerName WHERE id = @searchId;";
 
       MySqlParameter searchId = new MySqlParameter();
       searchId.ParameterName = "@searchId";
       searchId.Value = _id;
       cmd.Parameters.Add(searchId);
 
-      MySqlParameter customerFirst = new MySqlParameter();
-      customerFirst.ParameterName = "@newCustomerName";
-      customerFirst.Value = newCustomerName;
-      cmd.Parameters.Add(customerFirst);
+      MySqlParameter customerName = new MySqlParameter();
+      customerName.ParameterName = "@newCustomerName";
+      customerName.Value = newCustomerName;
+      cmd.Parameters.Add(customerName);
 
       cmd.ExecuteNonQuery();
-      _customerFirst = newCustomerName;
+      _customerName = newCustomerName;
 
       conn.Close();
       if (conn != null)
@@ -170,14 +176,14 @@ namespace HairSalon.Models
           conn.Dispose();
       }
     }
-    public static Customer Find(int id)
+    public static Customer Find(int id) //////check
     {
       MySqlConnection conn = DB.Connection(); 
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT * FROM customers WHERE id = @thisId;";
+      cmd.CommandText = @"SELECT * FROM customers WHERE id = @id;";
       MySqlParameter thisId = new MySqlParameter();
-      thisId.ParameterName = "@thisId";
+      thisId.ParameterName = "@id";
       thisId.Value = id;
       cmd.Parameters.Add(thisId);
       var rdr = cmd.ExecuteReader() as MySqlDataReader;
@@ -199,17 +205,17 @@ namespace HairSalon.Models
       return foundCustomer;
     }
 
-    public int FindStylistId()
-    {
-      int custStylistId = this.GetStyleId();
-      Stylist foundStylist = Stylist.Find(custStylistId);
-      return foundStylist.GetStyleId();
-    }
-    public string FindStylistName()
-    {
-      int stylistId = this.GetStyleId();
-      Stylist foundStylist = Stylist.Find(stylistId);
-      return foundStylist.GetStyleName();
-    } 
+    // public int FindStylistId()
+    // {
+    //   int stylistId = this.GetStylistId();
+    //   Stylist foundStylist = Stylist.Find(stylistId);
+    //   return foundStylist.GetId();
+    // }
+    // public string FindStylistName()
+    // {
+    //   int stylistId = this.GetStylistId();
+    //   Stylist foundStylist = Stylist.Find(stylistId);
+    //   return foundStylist.GetName();
+    // } 
   }
 }

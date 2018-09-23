@@ -32,10 +32,10 @@ namespace HairSalon.Controllers
 
 
     [HttpGet ("/stylists/{id}")]
-    public ActionResult Details (int stylistId) 
+    public ActionResult Details (int id) 
     {
     Dictionary<string, object> model = new Dictionary<string, object> ();
-    Stylist selectedStylist = Stylist.Find(stylistId);
+    Stylist selectedStylist = Stylist.Find(id);
     List<Customer> stylistCustomers = selectedStylist.GetCustomers();
     model.Add ("stylist", selectedStylist);
     model.Add ("customers", stylistCustomers);
