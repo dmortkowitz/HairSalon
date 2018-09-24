@@ -10,40 +10,40 @@ namespace HairSalon.Tests
 {
     public StylistTests()
     {
-      DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=3306;database=david_mortkowitz_test;";
+      DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=3306;database=david_mortkowitz_test; Allow User Variables=True;";
     } 
 
     [TestMethod]
-    public void GetAll_CategoriesEmptyAtFirst_0()
+    public void GetAll_StylistListEmptyAtFirst_0()
     {
       //Arrange, Act
-      int result = Category.GetAll().Count;
+      int result = Stylist.GetAll().Count;
 
       //Assert
       Assert.AreEqual(0, result);
     }
 
     [TestMethod]
-    public void Equals_ReturnsTrueForSameName_Category()
+    public void Equals_ReturnsTrueForSameName_Stylist()
     {
       //Arrange, Act
-      Category firstCategory = new Category("Janet");
-      Category secondCategory = new Category("Janet");
+      Stylist firstStylist = new Stylist("Janet");
+      Stylist secondStylist = new Stylist("Janet");
 
       //Assert
-      Assert.AreEqual(firstCategory, secondCategory);
+      Assert.AreEqual(firstStylist, secondStylist);
     }
 
     [TestMethod]
-    public void Save_SavesCategoryToDatabase_CategoryList()
+    public void Save_SavesStylistToDatabase_StylistList()
     {
       //Arrange
-      Category testCategory = new Category("Janet");
-      testCategory.Save();
+      Stylist testStylist = new Stylist("Janet");
+      testStylist.Save();
 
       //Act
-      List<Category> result = Category.GetAll();
-      List<Category> testList = new List<Category>{testCategory};
+      List<Stylist> result = Stylist.GetAll();
+      List<Stylist> testList = new List<Stylist>{testStylist};
 
       //Assert
       CollectionAssert.AreEqual(testList, result);
@@ -51,17 +51,17 @@ namespace HairSalon.Tests
 
 
     [TestMethod]
-    public void Save_DatabaseAssignsIdToCategory_Id()
+    public void Save_DatabaseAssignsIdToStylist_Id()
     {
       //Arrange
-      Category testCategory = new Category("Janet");
-      testCategory.Save();
+      Stylist testStylist = new Stylist("Janet");
+      testStylist.Save();
 
       //Act
-      Category savedCategory = Category.GetAll()[0];
+      Stylist savedStylist = Stylist.GetAll()[0];
 
-      int result = savedCategory.GetStyleId();
-      int testId = testCategory.GetStyleId();
+      int result = savedStylist.GetId();
+      int testId = testStylist.GetId();
 
       //Assert
       Assert.AreEqual(testId, result);
@@ -69,23 +69,23 @@ namespace HairSalon.Tests
 
 
     [TestMethod]
-    public void Find_FindsCategoryInDatabase_Category()
+    public void Find_FindsStylistInDatabase_Stylist()
     {
       //Arrange
-      Category testCategory = new Category("Janet");
-      testCategory.Save();
+      Stylist testStylist = new Stylist("Janet");
+      testStylist.Save();
 
       //Act
-      Category foundCategory = Category.Find(testCategory.GetStyleId());
+      Stylist foundStylist = Stylist.Find(testStylist.GetId());
 
       //Assert
-      Assert.AreEqual(testCategory, foundCategory);
+      Assert.AreEqual(testStylist, foundStylist);
     }
 
     public void Dispose()
     {
-      Item.DeleteAll();
-      Category.DeleteAll();
+      // Customer.DeleteAll();
+      Stylist.DeleteAll();
     }
   }
 }

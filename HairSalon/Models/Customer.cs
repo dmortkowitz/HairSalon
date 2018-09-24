@@ -111,25 +111,25 @@ namespace HairSalon.Models
       }
     }
     
-    public void Edit(string newCustomerName)
+    public void Edit(string newCustName)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE customers SET customerName = @newCustomerName WHERE id = @searchId;";
+      cmd.CommandText = @"UPDATE customers SET customerName = @newCustName WHERE id = @thisId;";
 
       MySqlParameter searchId = new MySqlParameter();
-      searchId.ParameterName = "@searchId";
+      searchId.ParameterName = "@thisId";
       searchId.Value = _id;
       cmd.Parameters.Add(searchId);
 
       MySqlParameter customerName = new MySqlParameter();
-      customerName.ParameterName = "@newCustomerName";
-      customerName.Value = newCustomerName;
+      customerName.ParameterName = "@newCustName";
+      customerName.Value = newCustName;
       cmd.Parameters.Add(customerName);
 
       cmd.ExecuteNonQuery();
-      _customerName = newCustomerName;
+      _customerName = newCustName;
 
       conn.Close();
       if (conn != null)
@@ -148,7 +148,7 @@ namespace HairSalon.Models
 
       MySqlParameter thisId = new MySqlParameter();
       thisId.ParameterName = "@thisId";
-      thisId.Value = _id;
+      thisId.Value = this._id;
       cmd.Parameters.Add(thisId);
 
       cmd.ExecuteNonQuery ();
@@ -160,14 +160,18 @@ namespace HairSalon.Models
       }
     }
     
-    public static void DeleteAll()
+    public void DeleteAll(int stylistId)
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"DELETE FROM customers;";
+      cmd.CommandText = @"DELETE FROM customers where stylistId = @thisStylistId;";
 
+      MySqlParameter thisStylistId = new MySqlParameter();
+      thisStylistId.ParameterName = "@thisId";
+      thisStylistId.Value = stylistId;
+      cmd.Parameters.Add(thisStylistId);
       cmd.ExecuteNonQuery();
 
       conn.Close();
