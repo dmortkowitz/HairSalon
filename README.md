@@ -14,21 +14,7 @@ _This program allows you to create an organized list of stylists, and the client
 * _Clone or download code from the Git Rep, located at:_
 * https://github.com/dmortkowitz/HairSalon.git* 
 * _Navigate to work folder, and load into text editor of choice._
-* _Then,_
-* _On OS X, load Terminal and run the command:_
-* /Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot 
-* _Then:_
-* CREATE DATABASE david_mortkowitz;
-* SHOW DATABASES; 
-* USE david_mortkowitz;
-* _To create tables, you may use the_
-* CREATE TABLE *stylists* (name VARCHAR 255)
-* _You will want to create two columns within the stylists table, called *id* (INT, with AI checked, set as PRIMARY),_ 
-* _and *stylist* (STRING, with VARCHAR 255).
-* CREATE TABLE customers (VARCHAR 255)
-* _You will want to create three columns within the customers table, called *id* (INT, with AI checked, set as PRIMARY),_
-* _then *customerName* (STRING, with VARCHAR 255), 
-* _and *stylistId* (INT, careful to not set as PRIMARY). 
+* _Unpack the .sql Database files david_mortkowitz and david_mortkowitz_test into the MAMP database.
 * _Then, from terminal, please navigate to the project folder HairSalon within HairSalon.Solution, and type:_
 * dotnet restore
 * dotnet run
