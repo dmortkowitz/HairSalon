@@ -5,9 +5,7 @@
    <li><a href='/stylists/@Model["stylist"].GetId()/customers/@customer.GetCustId()'>@customer.GetCustName()</a></li>
  }
 </ul>
-<p><a href='/stylists/@Model["stylist"].GetId()/customers/new'>Add a new customer</a></p>
-<p><a href='/stylists/@Model["stylist"].GetId()/specialties'>See stylist specialties</a></p>
-<form action='/stylists/@Model["stylist"].GetId()/delete' method="post">
-<button type="submit">Delete Stylist</button>
-<p><a href='/stylists'>Return to stylist list</a></p>
-<p><a href='/'>Return to Main Page.</a></p>
+<p></p><form action='/stylists/@Model["stylist"].GetId()/customers/new' method="get">
+<button type="submit">Add a new customer</button> | <a href='/stylists/@Model["stylist"].GetId()/specialties'><button class='btn btn-danger'>See stylist specialties</button></a></p>
+<p><form action='/stylists/@Model["stylist"].GetId()/delete' method="post">
+<button type="submit">Delete Stylist</button> | <a href='/stylists'><button class='btn btn-danger'>Return to stylist list</button></a> | <a href='/'><button class='btn btn-danger'>Return to main page</button></a> </p>

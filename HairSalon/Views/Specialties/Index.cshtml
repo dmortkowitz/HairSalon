@@ -7,5 +7,8 @@
 {
   <h3><a href="/specialties/@specialty.GetId()">@specialty.GetName()</a></h3>
 }
-<h3><a href='/specialties/new'>Add a new specialty</a></h3>
+<form action='/specialties/new' method="get">
+<button type="submit">Add a new specialty</button>
+<form action='/specialties/delete' method="post">
+<button type="submit">Delete All specialties</button>
 <p><a href="/">Back home</a></p>

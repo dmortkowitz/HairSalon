@@ -175,7 +175,7 @@ namespace HairSalon.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"DELETE from specialties";
+      cmd.CommandText = @"DELETE from specialties; DELETE from stylist_specialty;";
 
       cmd.ExecuteNonQuery();
       conn.Close();
