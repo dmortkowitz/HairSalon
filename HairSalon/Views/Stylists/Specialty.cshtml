@@ -1,0 +1,12 @@
+<h3>Here are all of @Model["stylist"].GetName()'s specialities:</h3>
+<ul>
+ @foreach (var specialty in @Model["specialtys"])
+ {
+   <li><a href='/stylists/@Model["stylist"].GetId()/specialty/@specialty.GetId()'>@specialty.GetName()</a></li>
+ }
+</ul>
+
+<p><a href='/stylists/@Model["stylist"].GetId()/specialties/new'>Add a new specialty</a></p>
+<p><a href='/stylists/@Model["stylist"].GetId()/specialties'>Return to stylist specialties</a></p>
+<p><a href='/stylists'>Return to stylist list</a></p>
+<p><a href='/'>Return to Main Page.</a></p>

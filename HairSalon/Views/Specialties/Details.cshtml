@@ -1,0 +1,11 @@
+<h3>Here are all the stylists with the @Model["specialty"].GetName() specialty:</h3>
+<ul>
+ @foreach (var stylist in @Model["stylists"])
+ {
+   <li><a href='/specialties/@Model["specialty"].GetId()/stylists/@stylist.GetId()'>@stylist.GetName()</a></li>
+ }
+</ul>
+<form action='/specialties/@Model["specialty"].GetId()/delete' method="post">
+<button type="submit">Delete Specialty</button>
+<p><a href='/specialties'>Return to specialty list</a></p>
+<p><a href='/'>Return to Main Page.</a></p>

@@ -1,0 +1,20 @@
+
+
+<h1 class="my-3">Add specialty to @Model.GetName()</h1>
+<form action="/stylists/@Model.GetId()/specialties/new" method="post">
+  <div class="form-group">
+    <label for="specialtyId">Select Specialty</label>
+    <select name="specialtyId" class="form-control" id="specialtyId">
+      @foreach (var specialty in HairSalon.Models.Specialty.GetAll())
+      {
+        @if (!@Model.GetSpecialties().Contains(@specialty))
+        {
+          <option value="@specialty.GetId()">@specialty.GetName()</option>
+        }
+      }
+    </select>
+  </div>
+  <button type="submit" class="btn btn-warning">Add to Stylist</button>
+  <h3><a href='/specialties/new'>Add a new specialty</a></h3>
+  <a href="/stylists/@Model.GetId()" class="btn btn-secondary mx-3">Back to Stylists</a>
+</form>

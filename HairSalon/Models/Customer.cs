@@ -83,6 +83,29 @@ namespace HairSalon.Models
       return allCustomers;
     }
 
+    public static List<Customer> GetCustomers()
+    {
+      List<Customer> allCustomers = new List<Customer> {};
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM customers;";
+      var rdr = cmd.ExecuteReader() as MySqlDataReader;
+      while(rdr.Read())
+      {
+        int customerId = rdr.GetInt32(0);
+        string customerName = rdr.GetString(1);
+        int stylistId = rdr.GetInt32(2);
+        Customer newCustomer = new Customer(customerName, stylistId, customerId);
+        allCustomers.Add(newCustomer);
+      }
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return allCustomers;
+    }
 
     public void Save()
     {
@@ -90,7 +113,7 @@ namespace HairSalon.Models
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO customers (customerName, stylistId) VALUES (@customerName, @stylistId);";
+      cmd.CommandText = @"INSERT INTO customers (customer_name, stylist_id) VALUES (@customerName, @stylistId);";
 
       MySqlParameter customerName = new MySqlParameter();
       customerName.ParameterName = "@customerName";
@@ -116,7 +139,7 @@ namespace HairSalon.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"UPDATE customers SET customerName = @newCustName WHERE id = @thisId;";
+      cmd.CommandText = @"UPDATE customers SET customer_name = @newCustName WHERE id = @thisId;";
 
       MySqlParameter searchId = new MySqlParameter();
       searchId.ParameterName = "@thisId";
@@ -160,18 +183,13 @@ namespace HairSalon.Models
       }
     }
     
-    public void DeleteAll(int stylistId)
+    public static void DeleteAll()
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
 
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"DELETE FROM customers where stylistId = @thisStylistId;";
-
-      MySqlParameter thisStylistId = new MySqlParameter();
-      thisStylistId.ParameterName = "@thisId";
-      thisStylistId.Value = stylistId;
-      cmd.Parameters.Add(thisStylistId);
+      cmd.CommandText = @"DELETE FROM customers;";
       cmd.ExecuteNonQuery();
 
       conn.Close();

@@ -1,0 +1,12 @@
+<h1>Customers</h1>
+@if (@Model.Count == 0)
+{
+  <h3>No customers have been added yet!</h3>
+}
+@foreach (var customer in Model)
+{
+  <h3><a href="/allcustomers/@customer.GetCustId()">@customer.GetCustName()</a></h3>
+}
+<form action='/allcustomers/delete' method="post">
+<button type="submit">Delete All Customers</button>
+<p><a href="/">Back home</a></p>
