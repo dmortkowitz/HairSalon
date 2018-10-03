@@ -10,7 +10,7 @@ namespace HairSalon.Tests
 {
     public StylistTests()
     {
-      DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=3306;database=david_mortkowitz_test; Allow User Variables=True;";
+      DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=david_mortkowitz_test; Allow User Variables=True;";
     } 
 
     [TestMethod]
@@ -80,6 +80,25 @@ namespace HairSalon.Tests
 
       //Assert
       Assert.AreEqual(testStylist, foundStylist);
+    }
+
+      public void Delete_DeleteStylistAndAllFromDB_Stylist()
+    {
+        //Arrange
+        Stylist testStylist = new Stylist("Janet");
+        testStylist.Save();
+
+        Customer testCustomer = new Customer("Bob", 2);
+        testCustomer.Save();
+
+        //Act
+        testStylist.Delete();
+
+        List<Customer> getCustomers = testStylist.GetCustomers();
+        List<Stylist> getStylists = new List<Stylist> {};
+
+        //Assert
+        CollectionAssert.AreEqual(getCustomers, getStylists);
     }
 
     public void Dispose()

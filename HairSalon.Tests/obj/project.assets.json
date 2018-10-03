@@ -10830,11 +10830,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/David/Desktop/HairSalon.Solution/HairSalon.Tests/HairSalon.Tests.csproj",
+      "projectUniqueName": "/Users/David/Desktop/HairSalon.Solution/hairsalon.tests/HairSalon.Tests.csproj",
       "projectName": "HairSalon.Tests",
-      "projectPath": "/Users/David/Desktop/HairSalon.Solution/HairSalon.Tests/HairSalon.Tests.csproj",
+      "projectPath": "/Users/David/Desktop/HairSalon.Solution/hairsalon.tests/HairSalon.Tests.csproj",
       "packagesPath": "/Users/David/.nuget/packages/",
-      "outputPath": "/Users/David/Desktop/HairSalon.Solution/HairSalon.Tests/obj/",
+      "outputPath": "/Users/David/Desktop/HairSalon.Solution/hairsalon.tests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/David/.nuget/NuGet/NuGet.Config"

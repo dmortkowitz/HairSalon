@@ -1,10 +1,6 @@
 <h1>Customer Detail Page</h1>
 <hr />
 <h2>@Model["customer"].GetCustName()</h2>
-<a href = '/stylists/@Model["stylist"].GetId()/customers/new'><button class='btn btn-danger'>Add customer</button></a>
-<a href = '/stylists/@Model["stylist"].GetId()'><button class='btn btn-warning'>View "@Model["stylist"].GetName()"</button></a>
-<a href = '/stylists/@Model["customer"].GetStylistId()/customers/@Model["customer"].GetCustId()/update'><button class='btn btn-warning'>Update Customer</button></a>
-<form action='/stylists/@Model["customer"].GetStylistId()/customers/@Model["customer"].GetCustId()/delete' method="post">
-<button type="submit">Delete</button>
-</form>
-</form>
+<p><a href = '/stylists/@Model["customer"].GetStylistId()/customers/@Model["customer"].GetCustId()/update'><button class='btn btn-warning'>Update Customer</button></a> 
+<form action='/stylists/@Model["customer"].GetStylistId()/customers/@Model["customer"].GetCustId()/delete' method="post"> <button type="submit">Delete</button></form></p>
+<p><a href = '/stylists/@Model["stylist"].GetId()'><button class='btn btn-warning'>View "@Model["stylist"].GetName()"</button></a></p>
