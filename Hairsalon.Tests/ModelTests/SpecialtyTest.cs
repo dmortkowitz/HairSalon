@@ -13,6 +13,13 @@ namespace HairSalon.Tests
       DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=david_mortkowitz_test; Allow User Variables=True;";
     } 
 
+    public void Dispose()
+    {
+      Customer.DeleteAll();
+      Stylist.DeleteAll();
+      Specialty.DeleteAll();
+    }
+
     [TestMethod]
     public void GetAll_SpecialtyListEmptyAtFirst_0()
     {
@@ -65,11 +72,11 @@ namespace HairSalon.Tests
       Assert.AreEqual(testSpecialty, foundSpecialty);
     }
 
-    public void Dispose()
-    {
-      // Customer.DeleteAll();
-      Stylist.DeleteAll();
-    }
+    // public void Dispose()
+    // {
+    //   // Customer.DeleteAll();
+    //   Stylist.DeleteAll();
+    // }
   }
 }
 

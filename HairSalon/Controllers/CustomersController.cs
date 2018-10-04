@@ -119,5 +119,16 @@ namespace HairSalon.Controllers
       Customer.DeleteAll();
       return RedirectToAction("allcustomers");
     }
+
+
+    [HttpPost("/allcustomers/{id}/delete")]
+    public ActionResult Delete(int id)
+    {
+      Customer newCustomer = Customer.Find(id);
+      newCustomer.Delete();
+      List<Customer> allCustomers = Customer.GetCustomers();
+      return RedirectToAction("allcustomers", allCustomers);
+    }
+
   }
 }

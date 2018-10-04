@@ -78,7 +78,7 @@ namespace HairSalon.Tests
       int totalCustomers = allCustomers.Count;
 
       //Assert
-      Assert.AreEqual(0, allCustomers);
+      Assert.AreEqual(0, totalCustomers);
     }
 
     public void Dispose()
